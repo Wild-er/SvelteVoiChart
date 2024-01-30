@@ -86,18 +86,31 @@ export async function GET({ request }) {
         const humbleLPInfo = await getHumbleLPInfo();
         const nomadexLPInfo = await getNomadexLPInfo();
 
+        // Set CORS headers
+        const headers = new Headers();
+        headers.append('Content-Type', 'application/json');
+        // Allow all origins - for specific origins, replace '*' with the origin URL
+        headers.append('Access-Control-Allow-Origin', '*');
+        // You can add other CORS headers if needed
+        headers.append('Access-Control-Allow-Methods', 'GET, OPTIONS');
+        headers.append('Access-Control-Allow-Headers', 'Content-Type');
+
         return new Response(JSON.stringify({ 
             humbleLPInfo, 
             nomadexLPInfo,
             priceHistory // Include the price history in the response
         }), {
             status: 200,
-            headers: { 'Content-Type': 'application/json' }
+            headers: headers
         });
     } catch (error) {
         console.error('Error in server-side route:', error);
         return new Response(JSON.stringify({ error: error.message }), {
-            status: 500
+            status: 500,
+            headers: {
+                'Content-Type': 'application/json',
+                'Access-Control-Allow-Origin': '*'
+            }
         });
     }
 }

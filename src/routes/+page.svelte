@@ -6,7 +6,7 @@
     let priceHistory = [];
   
     async function fetchData() {
-      const response = await fetch('https://svelte-voi-chart.vercel.app/api');
+      const response = await fetch('https://svelte-voi-chart.vercel.app/api/priceData');
       if (response.ok) {
         const data = await response.json();
         humbleLPInfo = data.humbleLPInfo;

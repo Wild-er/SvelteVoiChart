@@ -1,3 +1,4 @@
+// src/routes/api/priceData.js
 // Import necessary modules
 import algosdk from 'algosdk';
 import Contract from 'swap200js';
@@ -54,22 +55,20 @@ async function getNomadexLPInfo() {
 }
 
 // Main serverless function
-export default async function(req, res) {
+export default async function handler(req, res) {
     try {
         const humbleLPInfo = await getHumbleLPInfo();
         const nomadexLPInfo = await getNomadexLPInfo();
-        
+
         // Set CORS headers
         res.setHeader('Content-Type', 'application/json');
         res.setHeader('Access-Control-Allow-Origin', '*');
-        res.setHeader('Access-Control-Allow-Methods', 'GET, OPTIONS');
-        res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
 
         // Send the response
         res.status(200).json({
             humbleLPInfo, 
             nomadexLPInfo,
-            // Include priceHistory if it's needed in the response
+            // Include any additional data needed
         });
     } catch (error) {
         console.error('Error:', error);

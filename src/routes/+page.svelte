@@ -1,12 +1,12 @@
 <script>
-    import { onMount } from 'svelte';
-  
-    let humbleLPInfo;
-    let nomadexLPInfo;
-    let priceHistory = [];
-  
-    async function fetchData() {
-      const response = await fetch('/api');
+  import { onMount } from 'svelte';
+
+let humbleLPInfo;
+let nomadexLPInfo;
+let priceHistory = [];
+
+async function fetchData() {
+  const response = await fetch('/api/priceData');
       if (response.ok) {
         const data = await response.json();
         humbleLPInfo = data.humbleLPInfo;

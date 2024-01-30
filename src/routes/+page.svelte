@@ -6,7 +6,7 @@
     let priceHistory = [];
   
     async function fetchData() {
-      const response = await fetch('/api/priceData');
+      const response = await fetch('/api');
       if (response.ok) {
         const data = await response.json();
         humbleLPInfo = data.humbleLPInfo;

@@ -58,13 +58,7 @@ export default async function(req, res) {
     try {
         const humbleLPInfo = await getHumbleLPInfo();
         const nomadexLPInfo = await getNomadexLPInfo();
-
-        // Build response data
-        const responseData = { 
-            humbleLPInfo, 
-            nomadexLPInfo
-        };
-
+        
         // Set CORS headers
         res.setHeader('Content-Type', 'application/json');
         res.setHeader('Access-Control-Allow-Origin', '*');
@@ -72,9 +66,13 @@ export default async function(req, res) {
         res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
 
         // Send the response
-        res.status(200).send(JSON.stringify(responseData));
+        res.status(200).json({
+            humbleLPInfo, 
+            nomadexLPInfo,
+            // Include priceHistory if it's needed in the response
+        });
     } catch (error) {
         console.error('Error:', error);
-        res.status(500).send(JSON.stringify({ error: error.message }));
+        res.status(500).json({ error: error.message });
     }
 }
